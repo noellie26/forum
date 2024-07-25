@@ -1,0 +1,37 @@
+{{ define "content" }}
+<div class="container">
+  <p><a href="/" class="backButton"><< Accueil</a></p>
+  {{ if and .User.LoggedIn (eq .User.TypeInt 1) }}
+  <div class="reportPost">
+    <h2>{{ .Post.Title }}</h2>
+    {{ if .Post.ImageFileName }}
+    <img class="postImage" src="../assets/uploads/{{ .Post.ImageFileName }}" alt="Post image">
+    {{ end }}
+    {{ if .Post.VidFileName}}
+    <video controls class="postVideo" src="../assets/uploads/{{ .Post.VidFileName }}" type="video/mp4">
+      Votre navigateur ne supporte pas le type de la vidéo.
+    </video>
+    <p class="description">
+      {{ .Post.Description }}
+    </p>
+    <div class="reportPost">
+      <form action="/report/" method="POST">
+        <input type="hidden" name="id" value="{{ .Post.ID }}">
+        <input type="hidden" name="approved" value="false">
+        <label for="reason">&#128227; <span>Signaler</span> ce post parce qu'il est :</label>
+        <select id="reason" name="reason" required>
+          <option value="" disabled selected>Selectionner la raison</option>
+          <option value="irrelevant">Inadapté</option>
+          <option value="obscene">Obscene</option>
+          <option value="illegal">Illegal</option>
+          <option value="insulting">Insultant</option>
+          <input type="submit" value="Report it">
+        </select>
+      </form>
+    </div>
+  </div>
+  {{ else }}
+  <p class="errorMessage">Vous devez etre un moderateur pour Signaler.</p>
+  {{ end }}
+</div>
+{{ end }}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>forum</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+    <script src="/assets/main.js" defer></script>
+    <style>
+        .show {
+            display: flex;
+            align-items: center;
+            width: 200px;
+        }
+        .show label {
+            margin-right: 10px;
+        }
+        .username-circle {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: black;
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        h3 a {
+            background-color: rgba(166, 229, 208, 0.685);
+        }
+    </style>
+</head>
+<body>
+    <div class="navBar">
+        <a href="/"><h1 id="logo">Forum</h1></a>
+        <div class="user">
+            {{ if .User.LoggedIn }}
+            <div id="username-circle" class="username-circle"></div>
+            {{ else }}
+            Non connecté
+            {{ end }}
+            <ul>
+                {{ if .User.LoggedIn }}
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/activity">Mon Activité</a></li>
+                <li><a href="/notifications">Notifications {{ if ne .User.UnreadNotifications 0 }}<span class="unreadNotifications">{{ .User.UnreadNotifications }}{{ end }}</span></a></li>
+                {{ if eq .User.TypeInt 2 }}<li><a href="/admin">Admin {{ if ne .User.Admin.UnreadNotifications 0 }}<span class="unreadNotifications">{{ .User.Admin.UnreadNotifications }}{{ end }}</span></a></li>{{ end }}
+                <li><a href="/logout">Deconnexion</a></li>
+                {{ else }}
+                <li><a href="/login">Connexion</a></li>
+                {{ end }}
+            </ul>
+        </div>
+    </div>
+
+    {{ template "content" . }}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const usernameCircle = document.getElementById('username-circle');
+            
+            // Récupérer le nom d'utilisateur de la variable Go Template et le passer au JavaScript
+            const username = '{{ .User.Username }}';
+            
+            if (usernameCircle && username) {
+                const initials = username.slice(0, 2);
+                usernameCircle.textContent = initials;
+            }
+        });
+    </script>
+</body>
+</html>

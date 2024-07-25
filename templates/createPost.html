@@ -1,0 +1,47 @@
+{{ define "content" }}
+<div class="container">
+    <p><a href="/" class="backButton"><< Accueil</a></p>
+    <h2>Creer un Nouveau Post</h2>
+    {{ if .User.LoggedIn }}
+    {{ if .Error.Error }}
+    <p class="errorMessage">{{ .Error.Message }}</p>
+    {{ end }}
+    <div class="createPost">
+        <form id="createPost" method="POST" action="/createPost" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <label for="title">Titre:</label>
+            <br>
+            <input type="text" id="title" name="title"{{ if .Error.Error }} value="{{ .Error.Field1 }}"{{ end }} maxlength="130" required>
+            <br>
+            <label for="description">Description:</label>
+            <br>
+            <textarea id="description" name="description" maxlength="1000" style="width: 13cm; position: relative; left: 0px;" required class="textarea">{{ if .Error.Error }}{{ .Error.Field2 }}{{ end }}</textarea>
+            <br>
+            <label for="image">Image:</label>
+            <br>
+            <input type="file" id="image" name="image" accept="image/*">
+            <br>
+            <label for="video">Video:</label><!-- Ajout du champ pour la vidéo -->
+            <br>
+            <input type="file" id="video" name="video" accept="video/*">
+            <br> 
+            <label>Categorie:</label>
+            <br>
+            {{ range .Tags }}
+                {{ $checked := false }}
+                {{ $currentID := .ID | printf "%d" }}
+                {{ range $item := $.Error.Field3 }}
+                    {{ if eq $item $currentID }}
+                        {{ $checked = true }}
+                    {{ end }}
+                {{ end }}
+            <input type="checkbox" name="tags" value="{{ .ID }}"{{ if $checked }} checked{{ end }}> {{ .Name }}<br>
+            {{ end }}
+
+            <button type="submit">Creer le POST</button>
+        </form>
+    </div>
+    {{ else }}
+    <p>Vous devez etre connecté pour Creer un Nouveau Post.</p>
+    {{ end }}
+</div>
+{{ end }}

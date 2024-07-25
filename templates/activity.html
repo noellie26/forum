@@ -1,0 +1,85 @@
+{{ define "content" }}
+<div class="container">
+    <p><a href="/" class="backButton"><< Accueil</a></p>
+    {{ if .User.LoggedIn }}
+
+    <div class="listOfTags">
+        <ul>
+            <li><a href=#myPosts>Mes Posts</a></li>
+            <li><a href=#myComments>Mes Commentaires</a></li>
+            <li><a href=#myLikes>Mes Likes</a></li>
+            <li><a href=#myDislikes>Mes Dislikes</a></li>
+        </ul>
+    </div>
+
+    <div class="activity">
+        <div id="myPosts" class="activityCat">
+            <h3 class="activityHeadings">Mes Posts</h3>
+            {{ range .Activity.Posts }}
+            <p>{{ if not .Approved }}&#128308; {{ end }}<a href="/viewPost?id={{ .ID }}">{{ .Title }}</a>
+                <span class="editDelete"><a class="edit" href="/edit?type=post&id={{ .ID }}">&#128394;</a><a class="delete" href="/delete?type=post&id={{ .ID }}">&#128465;</a></span></p>
+            {{ else }}
+            <p>Vous n'avez rien posté.</p>
+            {{ end }}
+        </div>
+        <div id="myComments" class="activityCat">
+            <h3 class="activityHeadings">Mes commentaires</h3>
+            {{ range .Activity.Comments }}
+            <p><a href="/viewPost?id={{ .Post.ID }}">{{ .Post.Title }}</a></p>
+            {{ range .Comments }}
+            <p>{{ .Content }}
+                <span class="editDelete"><a class="edit" href="/edit?type=comment&id={{ .ID }}">&#128394;</a> <a class="delete" href="/delete?type=comment&id={{ .ID }}">&#128465;</a></span></p>
+            {{ end }}
+            {{ else }}
+            <p>Vous n'avez rien commenté.</p>
+            {{ end }}
+        </div>
+        <div id="myLikes" class="activityCat">
+            <h3 class="activityHeadings">Mes Likes</h3>
+
+            <h4>Posts</h4>
+            {{ range .Activity.PostLikes }}
+            <a href="/viewPost?id={{ .ID }}"><h3 class="postTitle">{{ .Title }}</h3></a>
+            {{ else }}
+            <p>Vous n'avez rien posté.</p>
+            {{ end }}
+
+            <h4>Commentaires</h4>
+            {{ range .Activity.CommentLikes }}
+            <a href="/viewPost?id={{ .Post.ID }}"><h3 class="postTitle">{{ .Post.Title }}</h3></a>
+            {{ range .Comments }}
+            <p>{{ .Content }}</p>
+            {{ end }}
+            {{ else }}
+            <p>Vous n'avez rien commenté.</p>
+            {{ end }}
+
+        </div>
+        <div id="myDislikes" class="activityCat">
+            <h3 class="activityHeadings">My dislikes</h3>
+
+            <h4>Posts</h4>
+            {{ range .Activity.PostDislikes }}
+            <a href="/viewPost?id={{ .ID }}"><h3 class="postTitle">{{ .Title }}</h3></a>
+            {{ else }}
+            <p>Vous n'avez rien posté.</p>
+            {{ end }}
+
+            <h4>Comments</h4>
+            {{ range .Activity.CommentDislikes }}
+            <a href="/viewPost?id={{ .Post.ID }}"><h3 class="postTitle">{{ .Post.Title }}</h3></a>
+            {{ range .Comments }}
+            <p>{{ .Content }}</p>
+            {{ end }}
+            {{ else }}
+            <p>Vous n'avez rien commenté.</p>
+            {{ end }}
+
+        </div>
+    </div>
+
+    {{ else }}
+    <p class="errorMessage">Connecter vous pour voir votre Activité .</p>
+    {{ end }}
+</div>
+{{ end }}

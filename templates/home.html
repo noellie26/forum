@@ -1,0 +1,31 @@
+{{ define "content" }}
+<div class="container">
+    <div class="listOfTags">
+        <ul>
+            {{ range .Tags }}
+            <li><a href="/?id={{ .ID }}">{{ .Name }}</a></li>
+            {{ end }}
+        </ul>
+    </div>
+    {{ if .User.LoggedIn }}
+    <br>
+    <a class="createPost" href="/createPost">Creer un Nouveau Post</a>
+    <br>
+    {{ end }}
+    {{ range .Posts }}
+    {{ if .Approved }}
+    <div class="postPreview">
+        <a href="/viewPost?id={{ .ID }}"><h3 class="postTitle">{{ .Title }}</h3></a>
+        <p class="postPreviewInfo">
+            Posted by: <a href="/user?name={{ .Username }}">{{ .Username }}</a> || <span class="creationDate">{{ .CreationDate }}</span> ||{{ range .Tags }} {{ . }}{{ end }}
+        </p>
+    </div>
+    {{ end }}
+    {{ else }}
+    <p>Pas encore de posts </p>
+    {{ end }}
+    {{ if .User.LoggedIn }}
+    <a class="createPost" href="/createPost">Creer un Nouveau Post</a>
+    {{ end }}
+</div>
+{{ end }}

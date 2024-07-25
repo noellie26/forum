@@ -1,0 +1,77 @@
+{{ define "content" }}
+<div class="container">
+  <p><a href="/" class="backButton"><< Accueil</a></p>
+  <h2>Notifications Admin</h2>
+  {{ if eq .User.TypeInt 2 }}
+  {{ if eq 0 (len .User.Admin.Notifications) }}
+  <p>Vous n'avez pas de notifications.</p>
+  {{ else }}
+  {{ range .User.Admin.Notifications }}
+  <p class="unread notification">
+    {{ if .Post }}
+    Ce <a href="/viewPost?id={{ .PostID }}">post</a> a été reporté comme inaproprié.
+    {{ end }}
+    {{ if .User }}
+    L'utilisateur <a href="/user?name={{ .Username }}">{{ .Username }}</a> a demandé a etre Moderateur.
+    {{ end }}
+  </p>
+  {{ end }}
+  {{ end }}
+  <div class="category-management">
+    <h2>Administration des Catégories</h2>
+
+    <!-- Affichage de l'erreur si nécessaire -->
+    {{ if .Error.Error }}
+    <div class="error-message">
+        <p>La catégorie '{{ .Error.Field2 }}' ne peut pas être supprimée car ce(s) message(s) est/sont publié(s) uniquement dans cette catégorie :</p>
+        <ul>
+            {{ range .Error.Field3 }}
+            <li><a href="/viewPost?id={{ . }}">Post</a></li>
+            {{ end }}
+        </ul>
+    </div>
+    {{ end }}
+
+    <!-- Affichage des catégories existantes -->
+    <div class="categories-list">
+        {{ range .Tags }}
+        <div class="category-item">
+            <span>{{ .Name }}</span>
+            <form action="/admin/tag" method="POST">
+                <input type="hidden" name="id" value="{{ .ID }}">
+                <input type="hidden" name="action" value="delete">
+                <input type="submit" value="Supprimer" class="delete-button">
+            </form>
+        </div>
+        {{ end }}
+    </div>
+
+    <!-- Formulaire d'ajout de catégorie -->
+    <div class="add-category">
+        <form action="/admin/tag" method="POST">
+            <input type="text" name="name" maxlength="20" required placeholder="Nom de la catégorie" style="width: 300px;">
+            <input type="hidden" name="action" value="add">
+            <input type="submit" value="Ajouter" class="add-button">
+        </form>
+    </div>
+</div>
+
+<div class="moderation-management">
+  <h2>Administration des Modérations</h2>
+  <div class="moderation-approval">
+      <form action="/admin/mode" method="POST">
+          <label for="moderation">L'approbation du nouveau message du modérateur est:</label>
+          <select id="moderation" name="moderation" required>
+              <option value="false"{{ if not .User.Admin.ApprovalNeeded }} selected{{ end }}>OFF</option>
+              <option value="true"{{ if .User.Admin.ApprovalNeeded }} selected{{ end }}>ON</option>
+          </select>
+          <input type="submit" value="Changer" class="change-button">
+      </form>
+  </div>
+</div>
+
+  {{ else }}
+  <p class="errorMessage">Cette page n'est pas pour vous.</p>
+  {{ end }}
+</div>
+{{ end }}

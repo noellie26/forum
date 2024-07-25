@@ -1,0 +1,28 @@
+{{ define "content" }}
+<div class="container">
+  <p><a href="/" class="backButton"><< Accueil</a></p>
+  {{ if eq .User.TypeInt 1 }}
+  <h2>Notifications</h2>
+  {{ if eq 0 (len .User.Moderator.Notifications) }}
+  <p>Vous n'avez pas de notifications.</p>
+  {{ else }}
+  {{ range .User.Moderator.Notifications }}
+  <p class="unread notification"><a href="/user?name={{ .Username }}">{{ .Username }}</a> a fait un nouveau  <a href="/viewPost?id={{ .ID }}">post</a>. Votre autorisation est requise</p>
+  {{ end }}
+  {{ end }}
+  {{ end }}
+  <h2>Notifications</h2>
+  {{ if .User.LoggedIn }}
+  {{ if eq 0 (len .Notifications) }}
+  <p>Vous n'avez pas de notifications.</p>
+  {{ else }}
+  {{ range .Notifications }}
+  <p class="{{ if not .IsRead }}unread {{ end }}notification"><a href="/user?name={{ .Who }}">{{ .Who }}</a> has {{ .ActionDone }}d your <a href="/viewPost?id={{ .PostID }}{{ if .IsComment }}#comment{{ .CommentID }}{{end}}">{{ if .IsPost }}post{{ else }}comment{{end}}</a>.
+    <br><span class="creationDate">{{ .CreatedDate }}</span></p>
+  {{ end }}
+  {{ end }}
+  {{ else }}
+  <p class="errorMessage">Vous devez etre connecté pour acceder a vos notifications.</p>
+  {{ end }}
+</div>
+{{ end }}

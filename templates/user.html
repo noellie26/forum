@@ -1,0 +1,42 @@
+{{ define "content" }}
+<div class="container">
+  <h2>{{ .UserInfo.Username }}</h2>
+  <p>Username: {{ .UserInfo.Username }}</p>
+  <p>Email: {{ .UserInfo.Email }}</p>
+  <p>User type: {{ .UserInfo.Type }}</p>
+  {{ if eq .User.Username .UserInfo.Username }}
+  {{ if and (eq .User.TypeInt 0) }}
+  {{ if .User.PromotionRequest }}
+  <p>La requête pour devenir modérateur a été transmise à l'administrateur.</p>
+  {{ else }}
+  <div class="requestMode">
+    <form action="/user/" method="POST">
+      <input type="hidden" name="id" value="{{ .User.ID }}">
+      <input type="hidden" name="name" value="{{ .UserInfo.Username }}">
+      <input type="submit" value="Request to become a moderator">
+    </form>
+  </div>
+  {{ end }}
+  {{ end }}
+  {{ end }}
+  {{ if eq .User.TypeInt 2 }}
+  {{ if .UserInfo.PromotionRequest }}
+  <p>Cet utilisateur a demandé à devenir modérateur.</p>
+  {{ end }}
+  <p>Change le niveau de L'utilisateur:</p>
+  <div class="changeUser">
+    <form action="/admin/user" method="POST">
+      <input type="hidden" name="id" value="{{ .UserInfo.ID }}">
+      <input type="hidden" id="name" name="name" value="{{ .UserInfo.Username }}">
+      <label for="level">Niveau:</label>
+      <select id="level" name="level" required>
+        <option value="0">utilisateur</option>
+        <option value="1">Moderateur</option>
+        <option value="2">Admin</option>
+      </select>
+      <input type="submit" value="Change Level">
+    </form>
+  </div>
+  {{ end }}
+</div>
+{{ end }}

@@ -1,0 +1,43 @@
+{{ define "content" }}
+<div class="container">
+  <div class="register">
+    <h2>INSCRIPTION </h2>
+    {{ if .Error.Error }}
+    <p class="errorMessage">{{ .Error.Message }}</p>
+    {{ end }}
+    <ul id="registerOptions">
+      <li class="username"><a href="#" onclick="toggleVisibility('registerByEmail')">Email</a></li>
+    </ul>
+    <h3 id="loading">Auth loading...</h3>
+    <form id="registerByEmail" action="/register" method="POST">
+      <label for="email">E-mail:</label>
+      <br>
+      <input type="email" id="email" name="email" placeholder="Email" autocomplete="email"{{ if .Error.Error }} value="{{ .Error.Field1 }}"{{ end }} required>
+      <br>
+      <label for="username">Username:</label>
+      <br>
+      <input type="text" id="username" name="username" placeholder="Username" autocomplete="username"{{ if .Error.Error }} value="{{ .Error.Field2 }}"{{ end }} required>
+      <br>
+      <label for="password">Mot de passe:</label>
+      <br>
+      <input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial." placeholder="Entrez votre mot de passe" required/>
+      <br>
+      <div class="show">
+        <label for="show_password">Voir le mot de passe</label>
+        <input type="checkbox" id="show_password" onchange="togglePasswordVisibility()">
+      </div>
+      <br>
+      <div class="box">
+        <label for="confirm_password">Confirmer le mot de passe</label>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirmer votre mot de passe"
+        required/>
+        <div id="password_error" style="color: rgb(251, 249, 249); display: none;">Les mots de passe ne correspondent pas</div>
+      </div>
+      <button type="submit">S'inscrire</button>
+      <div class="x">
+        <h3> Vous avez dejà un compte ? <a href="/login">Connexion </a></h3>
+      </div>
+    </form>
+  </div>
+</div>
+{{ end }}

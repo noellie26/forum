@@ -1,0 +1,33 @@
+{{ define "content" }}
+<div class="container">
+  <div class="login">
+    <h2>CONNEXION</h2>
+    {{ if .Error.Error }}
+    <p class="errorMessage">{{ .Error.Message }}</p>
+    {{ end }}
+    <ul id="registerOptions">
+      <li class="username"><a href="#" onclick="toggleVisibility('loginByUsername')">Username</a></li>
+    </ul>
+    <h3 id="loading">OAuth loading...</h3>
+    <form id="loginByUsername" action="/login" method="POST">
+      <label for="username">Username:</label>
+      <br>
+      <input type="text" id="username" name="username" placeholder="Username" autocomplete="username"{{ if .Error.Error }} value="{{ .Error.Field1 }}"{{ end }} required>
+      <br>
+      <label for="password">Mot de passe:</label>
+      <br>
+      <input type="password" id="password" name="password" placeholder="Password" required>
+      <br>
+      <div class="show">
+        <label for="show_password">Voir le mot de passe</label>
+        <input type="checkbox" id="show_password" onchange="togglePasswordVisibility()">
+      </div>
+      <br>
+      <button type="submit">Se Connecter</button>
+      <div class="x">
+        <h3> Vous n'avez pas de compte ? <a href="/register">Inscription</a></h3>
+      </div>
+    </form>
+  </div>
+</div>
+{{ end }}

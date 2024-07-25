@@ -1,0 +1,69 @@
+{{ define "content" }}
+<div class="container">
+  <p><a href="/activity" class="backButton"><< Mon Activité </a></p>
+  {{ if .User.LoggedIn }}
+  {{ if eq .Comment.ID "" }}
+  <h2>Modifier le Post</h2>
+  <div class="editPost">
+    <form id="editPost" method="POST" action="/edit/" enctype="multipart/form-data" onsubmit="return validateForm()">
+      <input type="hidden" name="type" value="post">
+      <input type="hidden" name="id" value="{{ .Post.ID }}">
+      <label for="title">Titre:</label>
+      <br>
+      <input type="text" id="title" name="title" value="{{ .Post.Title }}" maxlength="130" required>
+      <br>
+      <label for="description">Description:</label>
+      <br>
+      <textarea  id="description" name="description"  required>{{ .Post.Description }}</textarea>
+      <br>
+      <label for="image">Image:</label>
+      {{ if .Post.ImageFileName }}
+      <br>
+      <img class="postImage" src="../assets/uploads/{{ .Post.ImageFileName }}" alt="Post image">
+      {{ end }}
+      <br>
+      <input type="file" id="image" name="image" accept="image/*">
+      <br>
+      <label for="video">Video:</label>
+      {{ if .Post.VidFileName }}
+      <br>
+      <video class="postVideo" controls>
+        <source src="../assets/uploads/{{ .Post.VideoFileName }}" type="video/mp4">
+      </video>
+      {{ end }}
+      <br>
+      <input type="file" id="video" name="video" accept="video/*">
+      <br>
+      <label>Categorie:</label>
+      <br>
+      {{ range .Tags }}
+      {{ $checked := false }}
+      {{ $currentID := .ID | printf "%d" }}
+      {{ range $item := $.Post.Tags }}
+      {{ if eq $item $currentID }}
+      {{ $checked = true }}
+      {{ end }}
+      {{ end }}
+      <input type="checkbox" name="tags" value="{{ .ID }}"{{ if $checked }} checked{{ end }}> {{ .Name }}<br>
+      {{ end }}
+
+      <button type="submit">Modifier</button>
+    </form>
+  </div>
+  {{ else }}
+  <h2>Modifier Le commentaire</h2>
+  <div class="editComment">
+    <form action="/edit/" method="POST">
+      <input type="hidden" name="type" value="comment">
+      <input type="hidden" name="id" value="{{ .Comment.ID }}">
+      <textarea name="content" placeholder="Enter your comment" required>{{ .Comment.Content }}</textarea>
+      <br>
+      <button type="submit">Modifier</button>
+    </form>
+  </div>
+  {{ end }}
+  {{ else }}
+  <p class="errorMessage">Vous devez etre connecter pour effectuer des modifications.</p>
+  {{ end }}
+</div>
+{{ end }}

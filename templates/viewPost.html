@@ -1,0 +1,137 @@
+{{ define "content" }}
+<div class="container">
+  <p><a href="/" class="backButton"><< Accueil</a></p>
+  {{ if eq .Post.Title "" }}
+  <p>Il n’y a pas de post avec cet ID.</p>
+  {{ else }}
+  {{ if or (.Post.Approved) (or (eq .User.Username .Post.Username) (ne .User.TypeInt 0)) }}
+  <h2>{{ .Post.Title }}</h2>
+  <div class="post">
+    <div class="commentInfo">
+      <p class="postInfo">
+        <span class="authorw"><a href="/user?name={{ .Post.Username }}">{{ .Post.Username }}</a></span>
+        <br>
+        <span class="creationDate">{{ .Post.CreationDate }}</span>{{ if .Post.Edited }}<span class="edited"> Modifier</span>{{ end }}
+        {{ if eq .Post.Username .User.Username }}
+        <span class="editDelete"><a class="edit" href="/edit?type=post&id={{ .Post.ID }}">&#128394;</a><a class="delete" href="/delete?type=post&id={{ .Post.ID }}">&#128465;</a></span>
+        {{ else if or (eq .User.TypeInt 2) (eq .User.TypeInt 1) }}
+        <span class="editDelete"><a class="delete" href="/delete?type=post&id={{ .Post.ID }}">&#128465;</a></span>
+        {{ if eq .User.TypeInt 1 }}
+        <span class="editDelete"><a class="report" href="/report?type=post&id={{ .Post.ID }}">&#128227;</a></span>
+        {{ end }}
+        {{ end }}
+      </p>
+      {{ if .Post.ImageFileName }}
+      <img class="postImage" src="../assets/uploads/{{ .Post.ImageFileName }}" alt="Post image">
+      {{ end }}
+      {{ if .Post.VidFileName }}
+      <video width="320" height="240" controls class="postVideo" src="../assets/uploads/videos/{{ .Post.VidFileName }}" type="video/mp4">
+        Votre navigateur ne supporte pas le type de la vidéo.
+      </video>
+      {{ end }}
+      <p class="description">
+        {{ .Post.Description }}
+      </p>
+      {{ if .Post.Approved }}
+      <div class="liking">
+        <span class="likes">
+          {{ .Post.Likes }}
+          {{ if $.User.LoggedIn }}
+          <a title="Like" href="/viewPost?id={{ $.Post.ID }}&react=0&like=true">&#x1F44D;</a>
+          {{ else }}
+          &#x1F44D;
+          {{ end }}
+        </span>
+        <span class="dislikes">{{ .Post.Dislikes }}</span>
+        {{ if $.User.LoggedIn }}
+        <a title="Dislike" href="/viewPost?id={{ $.Post.ID }}&react=0&like=false">&#x1F44E;</a>
+        {{ else }}
+        &#x1F44E;
+        {{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+  {{ if .Post.Approved }}
+  {{ range .Comments }}
+  <div class="commentInfo" id="comment{{ .ID }}">
+    <p class="postInfo">
+      <span class="author"><a href="/user?name={{ .Username }}">{{ .Username }}</a></span>
+      <br>
+      <span class="creationDate">{{ .CreationDate }}</span>{{ if .Edited }}<span class="edited"> Modifier</span>{{ end }}
+      {{ if eq .Username $.User.Username }}
+      <span class="editDelete"><a class="edit" href="/edit?type=comment&id={{ .ID }}">&#128394;</a> <a class="delete" href="/delete?type=comment&id={{ .ID }}">&#128465;</a></span>
+      {{ else if eq $.User.TypeInt 2 }}
+      <span class="editDelete"><a class="delete" href="/delete?type=comment&id={{ .ID }}">&#128465;</a></span>
+      {{ end }}
+    </p>
+    <p class="commentText">
+      {{ .Content }}
+    </p>
+    <div class="liking">
+        <span class="likes">
+          {{ .Likes }}
+          {{ if $.User.LoggedIn }}
+          <a href="/viewPost?id={{ $.Post.ID }}&react={{ .ID }}&like=true#comment{{ .ID }}">&#x1F44D;</a>
+          {{ else }}
+          &#x1F44D;
+          {{ end }}
+        </span>
+      <span class="dislikes">{{ .Dislikes }}</span>
+      {{ if $.User.LoggedIn }}
+      <a href="/viewPost?id={{ $.Post.ID }}&react={{ .ID }}&like=false#comment{{ .ID }}">&#x1F44E;</a>
+      {{ else }}
+      &#x1F44E;
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+  {{ if .User.LoggedIn }}
+  <div class="reply" >
+    <h3>Reply:</h3>
+    <form action="/reply" method="POST" class="form-container">
+      <input type="hidden" name="postID" value="{{ .Post.ID }}">
+      <textarea name="content" placeholder="Entrez votre réponse" required></textarea>
+      <br>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  {{ else }}
+  <p>S’il vous plaît connectez-vous pour répondre ou réagir à ce post ou commentaires.</p>
+  {{ end }}
+  {{ end }}
+  {{ end }}
+  {{ if not .Post.Approved }}
+  <p>&#128308; Ce post n’est pas encore approuvé par les modérateurs.</p>
+  {{ if .Post.Reported }}
+  <p>&#10071; Ce post a été signalé comme {{ .Post.ReportReason}}.</p>
+  {{ if eq .User.TypeInt 2 }}
+  <div class="approvePost">
+    <form action="/admin/post" method="POST">
+      <input type="hidden" name="id" value="{{ .Post.ID }}">
+      <input type="hidden" name="approved" value="true">
+      <input type="submit" value="Approve post">
+    </form>
+    <form action="/admin/post" method="POST">
+      <input type="hidden" name="id" value="{{ .Post.ID }}">
+      <input type="hidden" name="approved" value="false">
+      <input type="submit" value="Remove post">
+    </form>
+  </div>
+
+  {{ end }}
+  {{ else if eq .User.TypeInt 1 }}
+  <div class="reportPost">
+    <form action="/report/" method="POST">
+      <input type="hidden" name="id" value="{{ .Post.ID }}">
+      <input type="hidden" name="approved" value="true">
+      <input type="submit" value="Accept">
+    </form>
+  </div>
+  <p>or</p>
+  <span class="editDelete"><a class="delete" href="/delete?type=post&id={{ .Post.ID }}">&#128465;</a></span>
+  {{ end }}
+  {{ end }}
+  {{ end }}
+</div>
+{{ end }}

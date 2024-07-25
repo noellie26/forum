@@ -1,0 +1,57 @@
+{{ define "content" }}
+<div class="container">
+  <p><a href="/activity" class="backButton"><< Mon Activité</a></p>
+  {{ if .User.LoggedIn }}
+  {{ if eq .Comment.ID "" }}
+  <div class="deletePost">
+    <h2>{{ .Post.Title }}</h2>
+    {{ if .Post.ImageFileName }}
+    <img class="postImage" src="../assets/uploads/{{ .Post.ImageFileName }}" alt="Post image">
+    {{ end }}
+    {{ if .Post.VidFileName }}
+    <video controls class="postVideo" src="../assets/uploads/{{ .Post.VidFileName }}" type="video/mp4">
+      Votre navigateur ne supporte pas le type de la vidéo.
+    </video>
+    {{end}}
+    <p class="description">
+      {{ .Post.Description }}
+    </p>
+    <h2>Etes-vous sûr de vouloir supprimer ce post ?</h2>
+    <form action="/delete/" method="POST">
+      <input type="hidden" name="type" value="post">
+      <input type="hidden" name="id" value="{{ .Post.ID }}">
+      <input type="hidden" name="yesno" value="true">
+      <button type="submit" class="btn btn-yes">Oui</button>
+    </form>
+    <form action="/delete/" method="POST">
+      <input type="hidden" name="type" value="post">
+      <input type="hidden" name="id" value="{{ .Post.ID }}">
+      <input type="hidden" name="yesno" value="false">
+      <button type="submit" class="btn btn-no">Non</button>
+    </form>
+  </div>
+  {{ else }}
+  <div class="deleteComment">
+    <p class="description">
+      {{ .Comment.Content }}
+    </p>
+    <h2>Etes-vous sûr de vouloir supprimer ce commentaire ?</h2>
+    <form action="/delete/" method="POST">
+      <input type="hidden" name="type" value="comment">
+      <input type="hidden" name="id" value="{{ .Comment.ID }}">
+      <input type="hidden" name="yesno" value="true">
+      <button type="submit" class="btn btn-yes">Oui</button>
+    </form>
+    <form action="/delete/" method="POST">
+      <input type="hidden" name="type" value="comment">
+      <input type="hidden" name="id" value="{{ .Comment.ID }}">
+      <input type="hidden" name="yesno" value="false">
+      <button type="submit" class="btn btn-no">Non</button>
+    </form>
+  </div>
+  {{ end }}
+  {{ else }}
+  <p class="errorMessage">Vous devez être connecté pour avoir accès aux suppressions</p>
+  {{ end }}
+</div>
+{{ end }}

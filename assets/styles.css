@@ -1,0 +1,710 @@
+/** {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+}*/
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    width: 100%;
+    background-image: url("https://garchesgvloisirs.comiti-sport.fr/uploads/news/24a9a80909151bd02d7b0c3d5a1036f172bbb9d0.jpeg");
+    background-repeat: no-repeat;
+    /*background-size: cover;
+    background-position: center;*/
+    height: 1000px;
+    /* Remplacez 'chemin/vers/votre/image.jpg' par le chemin de votre image*/
+    background-size: cover;
+    background-position: center;
+    opacity : 5;
+}
+
+.container {
+    background-color: transparent;
+    min-height: 90vh;
+    border: 40px solid rgb(6, 114, 78);
+    border-radius: 5 ;
+    position: relative;
+    top: 20vh;
+}
+
+
+
+/*.commentInfo p.postImage .description {
+    margin: 0;
+    overflow: hidden;
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto 1fr;
+    gap: 50px;
+}
+
+.commentInfo img{
+    float: left;
+    margin-right: 10px;
+}*/
+
+.navBar {
+    position: absolute;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+    margin-top: 0px;
+    background-color: whitesmoke;
+    border: 5px solid rgb(6, 114, 78);
+    box-shadow: 0 0 20px;
+    color: #333;
+}
+
+
+.navBar * {
+    display: inline;
+}
+
+.user {
+    padding-left: 20px;
+}
+
+h1 {
+    color: rgb(6, 114, 78);
+    margin: auto;
+    width: 80%;
+    padding-bottom: 50px;
+}
+
+ul {
+    list-style: circle; /* Supprime les puces de la liste */
+    padding: 10;
+    margin: 0;
+    flex-flow: display;
+    background-color: rgba(166, 229, 208, 0.685);
+    text-decoration: solid;
+}
+
+ul li {
+    display: -webkit-inline-box; /* Affiche les éléments en tant que blocs en ligne */
+    font-family: 'Nunito', monospace;
+    padding: 20px 30px; /* Ajoute un espacement interne */
+    background-color: rgba(252, 190, 5, 0); /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    margin-right: 20px; /* Espacement entre les éléments */
+}
+
+
+.listOfTags {
+    border: 2px solid rgb(6, 114, 78);
+    border-radius: 10px;
+    margin: auto;
+    padding: 30px;
+    color: white;
+    display: flex;
+    list-style: none;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+    color: rgb(3, 3, 3);
+    font-weight: bold;
+    font-size: large;
+    text-size-adjust: 30px;
+}
+
+
+.author {
+    font-weight: bold;
+    font-size: large;
+}
+
+.timePosted {
+    font-weight: lighter;
+    color: rgb(12, 11, 11);
+}
+
+.container {
+    margin: auto;
+    width: 50vw;
+    padding: 20px;
+
+}
+
+.postPreview {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px; /* Augmentez l'espacement interne pour une meilleure lisibilité */
+    background-color: #f9f9f9; /* Ajoutez une couleur de fond légèrement différente pour distinguer les postes */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre portée pour un effet de profondeur */
+}
+
+.postPreview:hover {
+    transform: translateY(-2px); /* Ajoute une légère translation vers le haut au survol pour un effet de flottement */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Augmente l'ombre portée au survol pour un effet de survol */
+}
+
+
+.liking {
+    float: right;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+.likes {
+    color: rgb(252, 190, 5);
+}
+
+.dislikes {
+    color: red;
+}
+
+.commentInfo {
+    border-left: 6px solid rgb(18, 114, 78);
+    margin: auto;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    width: 50vw;
+}
+
+.reply {
+    margin: auto;
+    width: 20%;
+    padding: 30px;
+    font-size: large;
+    font-style: italic;
+}
+
+.createPost {
+    margin: auto;
+    width: 70%;
+    padding: 30px;
+    background-color: rgba(166, 229, 208, 0.685);
+
+}
+
+#title {
+    width: 100%;
+    padding: 20px;
+    text-decoration: solid;
+    border-radius: 1;
+    background-color: #f2f2f2;
+}
+
+textarea {
+    width: 200%;
+    height: 100px;
+    padding: 5px;
+    align-items: center;
+    position: relative;
+    right: 70px;
+    font-size: 20px;
+}
+
+.text{
+    width: 20vh;
+    padding: 5px;
+    align-items: center;
+    position: relative;
+    right: 70px;
+    font-size: 20px;
+}
+.form-container {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+button {
+    margin: 20px;
+    width: 300px;
+    height: 50px;
+    border-radius: 15px 15px 15px 15px;
+    text-align: center;
+    background-color: rgb(18, 114, 78);
+    color: white;
+    font-size: x-large;
+    font-weight: 100px;
+}
+.textarea {
+    width: 100%; /* Or set a specific width like 600px */
+    height: 100px;
+    padding: 5px;
+    font-size: 20px;
+    display: block;
+    margin: 0 auto; /* Center the textarea */
+}
+
+button:hover {
+    margin: 20px;
+    width: 100px;
+    height: 50px;
+    border-radius: 15px 15px 15px 15px;
+    text-align: center;
+    background-color: white;
+    color: black;
+    font-size: x-large;
+    font-weight: 100px;
+}
+
+.register, .login {
+    margin: 15px;
+    width: 100%;
+    box-shadow: 0 0 20px;
+    border-color: rgb(6, 114, 78);
+}
+
+.register input, .login input {
+    width: 100%;
+    padding: 5px;
+}
+
+.backButton {
+    font-size: medium !important; /* Ajuste la taille du texte */
+    color: #333; /* Couleur du texte */
+    text-decoration: none; /* Supprime le soulignement */
+    padding: 8px 16px; /* Ajuste l'espacement intérieur */
+    border: 1px solid #333; /* Ajoute une bordure */
+    border-radius: 5px; /* Ajoute un arrondi aux coins */
+    background-color: #f2f2f2; /* Couleur de fond */
+}
+
+.backButton:hover {
+    background-color: #e0e0e0; /* Change la couleur de fond au survol */
+}
+
+
+.errorMessage {
+    color: red;
+    font-weight: bold;
+}
+
+#error {
+    width: 100vw;
+    text-align: center;
+}
+#errorInfo {
+    margin: auto;
+}
+#errorNumber {
+    font-size: 30em;
+    margin: auto;
+}
+#errorText1 {
+    font-size: 3em;
+}
+#errorText2 {
+    font-size: 2em;
+}
+#errorText2 {
+    font-size: 1em;
+}
+
+.postImage {
+    max-height: 300px;
+}
+
+#registerByEmail, #loginByUsername, #loading {
+    display: none;
+}
+
+#registerOptions {
+    list-style-type: none; /* Supprime les puces de la liste */
+    padding: 0;
+  }
+  #registerOptions li {
+    margin: 5px 0; /* Ajoute une marge entre les éléments */
+  }
+  #registerOptions li a {
+    border: 1px solid gray;
+    padding: 15px;
+    display: block; /* Assure que le lien occupe toute la largeur de l'élément li */
+    text-align: center; /* Centrer le texte à l'intérieur du lien */
+  }
+
+.activityCat {
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 20px; /* Ajoute un espace en bas pour séparer les catégories */
+}
+
+.activityHeadings {
+    color: #333; /* Couleur du titre */
+    font-size: 1.2em; /* Taille du titre */
+    margin-bottom: 10px; /* Espacement en bas du titre */
+}
+
+.activityCat p {
+    margin: 10px 0; /* Espacement autour des paragraphes */
+    padding: 10px; /* Ajoute un espacement à l'intérieur des paragraphes */
+    border-radius: 5px; /* Ajoute un arrondi aux coins */
+}
+
+.activityCat p:hover {
+    background-color: #f2f2f2; /* Change la couleur de fond au survol */
+}
+
+.postTitle {
+    margin-bottom: 20px; /* Espacement en bas du titre de poste */
+}
+
+.editDelete {
+    font-size: 1.2em; /* Taille des icônes d'édition et de suppression */
+}
+
+.editDelete a {
+    margin-left: 10px; /* Espacement entre les icônes */
+    text-decoration: slateblue; /* Supprime le soulignement des liens */
+    color: #999; /* Couleur des icônes */
+}
+
+.editDelete a:hover {
+    color: #666; /* Couleur des icônes au survol */
+}
+
+#myPosts,
+#myComments,
+#myLikes,
+#myDislikes {
+    margin-bottom: 30px; /* Ajoute un espace en bas de chaque catégorie */
+    background-color: #edefe3;
+}
+
+#myPosts.activityCat:hover,
+#myComments.activityCat:hover,
+#myLikes.activityCat:hover,
+#myDislikes.activityCat:hover {
+    background-color: rgba(166, 229, 208, 0.685); /* Change la couleur de fond au survol */
+    cursor: pointer; /* Change le curseur au survol */
+}
+
+.edited {
+    color: gray;
+    font-style: italic;
+}
+
+.notification {
+    border: 1px solid gray;
+    padding: 10px;
+    margin-bottom: 10px; /* Ajoute un espacement entre chaque notification */
+    background-color: rgba(166, 229, 208, 0.685); /* Couleur de fond */
+    border-radius: 5px; /* Ajoute un arrondi aux coins */
+}
+
+.unread {
+    border: 2px solid rgba(166, 229, 208, 0.685); /* Bordure plus épaisse pour les notifications non lues */
+}
+
+.creationDate {
+    color: gray; /* Couleur du texte de la date de création */
+    font-size: small; /* Taille de la police de la date de création */
+}
+
+.unreadNotifications {
+    vertical-align: super;
+    font-weight: bold;
+    color: white;
+    background-color: red;
+    padding: 0 5px 0 5px;
+    border-radius: 15px;
+}
+
+.backButton {
+    font-size: medium; /* Taille du texte du bouton de retour */
+    color: #333; /* Couleur du texte */
+    text-decoration: none; /* Supprime le soulignement */
+    padding: 8px 16px; /* Ajoute un espacement intérieur */
+    border: 1px solid #333; /* Ajoute une bordure */
+    border-radius: 5px; /* Ajoute un arrondi aux coins */
+    background-color: #f2f2f2; /* Couleur de fond */
+}
+
+.backButton:hover {
+    background-color: #e0e0e0; /* Change la couleur de fond au survol */
+}
+
+
+.category-management {
+    margin-top: 20px;
+    background-color: darkgoldenrod;
+}
+
+.error-message {
+    background-color: #f7eeee;
+    border: 1px solid #ff9999;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.categories-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    cursor: pointer;
+    background-clip: border-box;
+    background-color: rgba(166, 229, 208, 0.685);
+    text-decoration-color: rgba(166, 229, 208, 0.685);
+    text-decoration: solid;
+}
+
+.category-item {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-item span {
+    flex-grow: 1;
+    background-color: rgba(166, 229, 208, 0.685);
+}
+
+.delete-button {
+    background-color: #ff6666;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #ff4d4d;
+}
+
+.add-category input[type="text"] {
+    width: calc(100% - 100px);
+    margin-right: 10px;
+}
+
+.add-button {
+    background-color: #53e690;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-button:hover {
+    background-color: #d24d4d;
+}
+
+.moderation-management {
+    margin-top: 20px;
+}
+
+.moderation-approval {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.moderation-approval label {
+    margin-right: 10px;
+}
+
+.moderation-approval select {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.change-button {
+    background-color: #53e690;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.change-button:hover {
+    background-color: #d24d4d;
+}
+
+.deletePost:hover {
+    background-color: #f0f0f0; /* Couleur de fond au survol */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Ombre au survol */
+}
+
+.deleteComment:hover {
+    background-color: #f0f0f0; /* Couleur de fond au survol */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Ombre au survol */
+}
+
+.editPost {
+    max-width: 500px; /* Limitation de la largeur du formulaire */
+    margin: auto; /* Centrer le formulaire horizontalement */
+    padding: 20px; /* Ajouter de l'espace autour du formulaire */
+    background-color: #f9f9f9; /* Couleur de fond du formulaire */
+    border-radius: 10px; /* Arrondir les bords du formulaire */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ajouter une légère ombre */
+}
+
+.editPost label {
+    font-weight: bold; /* Mettre en gras les étiquettes */
+}
+
+.editPost input[type="text"],
+.editPost textarea,
+.editPost input[type="file"] {
+    width: 100%; /* Remplir la largeur du formulaire */
+    margin-bottom: 10px; /* Ajouter de l'espace entre les éléments */
+    padding: 10px; /* Ajouter de l'espace à l'intérieur des champs */
+    border: 1px solid #ccc; /* Ajouter une bordure */
+    border-radius: 5px; /* Arrondir les coins des champs */
+    box-sizing: border-box; /* Inclure la bordure et le rembourrage dans la largeur totale */
+    font-family: 'Nunito', sans-serif; /* Utiliser une police de caractères attrayante */
+}
+
+.editPost input[type="file"] {
+    background-color: #f9f9f9; /* Couleur de fond pour le champ de fichier */
+    cursor: pointer; /* Afficher un curseur pointer au survol */
+}
+
+.editPost input[type="file"]::file-selector-button {
+    background-color: #4CAF50; /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    border: none; /* Supprimer la bordure du bouton */
+    padding: 10px 20px; /* Ajouter un peu de rembourrage */
+    border-radius: 5px; /* Arrondir les coins */
+    cursor: pointer; /* Afficher un curseur pointer au survol */
+}
+
+.editPost input[type="file"]::file-selector-button:hover {
+    background-color: #45a049; /* Couleur de fond du bouton au survol */
+}
+
+.editPost button {
+    background-color: #4CAF50; /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    border: none; /* Supprimer la bordure du bouton */
+    padding: 10px 20px; /* Ajouter de l'espace autour du texte du bouton */
+    border-radius: 5px; /* Arrondir les coins du bouton */
+    cursor: pointer; /* Afficher un curseur pointer au survol */
+}
+
+.editPost button:hover {
+    background-color: rgb(18, 114, 78); /* Couleur de fond du bouton au survol */
+}
+
+.createPost {
+    max-width: 500px; /* Limiter la largeur du formulaire */
+    margin: auto; /* Centrer le formulaire horizontalement */
+    padding: 20px; /* Ajouter de l'espace autour du formulaire */
+    background-color: #f9f9f9; /* Couleur de fond du formulaire */
+    border-radius: 10px; /* Arrondir les coins du formulaire */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ajouter une légère ombre */
+}
+
+.createPost label {
+    font-weight: bold; /* Mettre en gras les étiquettes */
+}
+
+.createPost input[type="text"],
+.createPost textarea,
+.createPost input[type="file"] {
+    width: 100%; /* Remplir la largeur du formulaire */
+    margin-bottom: 10px; /* Ajouter de l'espace entre les éléments */
+    padding: 10px; /* Ajouter de l'espace à l'intérieur des champs */
+    border: 1px solid #ccc; /* Ajouter une bordure */
+    border-radius: 5px; /* Arrondir les coins des champs */
+    box-sizing: border-box; /* Inclure la bordure et le rembourrage dans la largeur totale */
+    font-family: 'Nunito', sans-serif; /* Utiliser une police de caractères attrayante */
+}
+
+.createPost input[type="file"] {
+    background-color: #f9f9f9; /* Couleur de fond pour le champ de fichier */
+    cursor: pointer; /* Afficher un curseur pointer au survol */
+}
+
+.createPost input[type="file"]::file-selector-button {
+    background-color: rgb(18, 114, 78); /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    border: none; /* Supprimer la bordure du bouton */
+    padding: 10px 20px; /* Ajouter un peu de rembourrage */
+    border-radius: 5px; /* Arrondir les coins */
+    cursor: pointer; /* Afficher un curseur pointer au survol */
+}
+
+.createPost input[type="file"]::file-selector-button:hover {
+    background-color:rgb(18, 114, 78); /* Couleur de fond du bouton au survol */
+}
+
+.createPost button {
+    background-color: rgb(18, 114, 78); /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    border: none; /* Supprimer la bordure du bouton */
+    padding: 10px 20px; /* Ajouter de l'espace autour du texte du bouton */
+    border-radius: 5px; /* Arrondir les coins du bouton */
+    cursor: pointer; /* Afficher un curseur pointer au survol */
+    width: 40%;
+}
+
+.createPost button:hover {
+    background-color: white; /* Couleur de fond du bouton au survol */
+    color: #333;
+}
+
+.register, .login {
+    max-width: 400px; /* Limiter la largeur du formulaire */
+    margin: auto; /* Centrer le formulaire horizontalement */
+    padding: 20px; /* Ajouter de l'espace autour du formulaire */
+    background-color: #f9f9f9; /* Couleur de fond du formulaire */
+    border-radius: 10px; /* Arrondir les coins du formulaire */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ajouter une légère ombre */
+}
+
+.register input,
+.login input {
+    width: 100%; /* Remplir la largeur du formulaire */
+    margin-bottom: 10px; /* Ajouter de l'espace entre les éléments */
+    padding: 10px; /* Ajouter de l'espace à l'intérieur des champs */
+    border: 1px solid #ccc; /* Ajouter une bordure */
+    border-radius: 5px; /* Arrondir les coins des champs */
+    box-sizing: border-box; /* Inclure la bordure et le rembourrage dans la largeur totale */
+    font-family: 'Nunito', sans-serif; /* Utiliser une police de caractères attrayante */
+}
+
+.register button,
+.login button {
+    background-color: #4CAF50; /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    border: none; /* Supprimer la bordure du bouton */
+    padding: 10px 20px; /* Ajouter de l'espace autour du texte du bouton */
+    border-radius: 5px; /* Arrondir les coins du bouton */
+    cursor: pointer; /* Afficher un curseur pointer au survol */
+}
+
+.register button:hover,
+.login button:hover {
+    background-color: #45a049; /* Couleur de fond du bouton au survol */
+}
+
+#registerOptions .google {
+    background-color: #206c39ce; /* Couleur rouge pour Google */
+    color: white; /* Texte blanc pour Google */
+    border-radius: 20px;
+  }
+  
+  #registerOptions .git {
+    background-color: #3f4144; /* Couleur noire pour GitHub */
+    color: white; /* Texte blanc pour GitHub */
+    border-radius: 20px;
+  }
+
+  #registerOptions .username {
+    color: black; /* Texte noir pour Username */
+    border-radius: 20px;
+}
+
